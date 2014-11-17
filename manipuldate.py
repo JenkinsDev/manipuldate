@@ -16,6 +16,12 @@ class Manipuldate(datetime.datetime):
         tzinfo = tzinfo or self.tzinfo
         return Manipuldate(year, month, day, hour, minute, second, microsecond, tzinfo)
 
+    def sub_months(self, months):
+        month, year = self.month - months, self.year
+        while month <= 0:
+            year -= 1
+            month += 12
+
     def add_months(self, months):
         """ Adds the amount of provided months to our datetime object
         then returns a new instance of Manipuldate because of how datetime
