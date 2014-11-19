@@ -6,6 +6,14 @@ class Manipuldate(datetime.datetime):
 
     @staticmethod
     def instance(dt):
+        """ Creates an instance of Manipuldate based on a supplied datetime instance.
+
+        Parameters:
+            :param dt: Datetime instance that we will be using to create our instance.
+
+        Returns:
+            Manipuldate Instance
+        """
         return Manipuldate(dt.year, dt.month, dt.day, dt.hour, dt.minute,
                            dt.second, dt.microsecond, dt.tzinfo)
 
