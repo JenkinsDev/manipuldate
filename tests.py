@@ -9,7 +9,7 @@ class TestBasicDateArithmetic(unittest.TestCase):
     def setUp(self):
         # Create our instance of Manipuldate based on a set
         # date so we can solidly check the arithmetic
-        self.manip = Manipuldate.strptime("11/21/06", "%m/%d/%y")
+        self.manip = Manipuldate(2006, 11, 21)
 
     def test_add_one_year(self):
         one_year = self.manip.add_year()
@@ -57,6 +57,16 @@ class TestBasicDateArithmetic(unittest.TestCase):
         one_hundred_months = self.manip.sub_months(100)
         self.assertEqual(one_hundred_months.month, 7)
         self.assertEqual(one_hundred_months.year, 1998)
+
+    def test_we_can_do_multiple_equations_chained(self):
+        new_date = self.manip.add_year().sub_months(10)
+        self.assertEqual(new_date.year, 2007)
+        self.assertEqual(new_date.month, 1)
+
+        # Let's try with some more arithmetic.
+        newer_date = self.manip.add_months(24).sub_years(2)
+        self.assertEqual(newer_date.year, 2006)
+        self.assertEqual(newer_date.month, 11)
 
 
 class TestManipuldateInstances(unittest.TestCase):
