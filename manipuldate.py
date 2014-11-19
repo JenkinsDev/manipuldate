@@ -4,6 +4,8 @@ import datetime
 class Manipuldate(datetime.datetime):
     """ Easy date/datetime manipulation with Python3.x+ """
 
+    SECONDS_IN_DAY = 60 * 60 * 24
+
     @staticmethod
     def instance(dt):
         """ Creates an instance of Manipuldate based on a supplied datetime instance.
@@ -28,7 +30,6 @@ class Manipuldate(datetime.datetime):
             Manipuldate Instance
         """
         return Manipuldate(d.year, d.month, d.day)
-
 
     def _copy_to_new_instance(self, year=None, month=None, day=None, hour=None, minute=None,
                       second=None, microsecond=None, tzinfo=None):
