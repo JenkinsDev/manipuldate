@@ -17,6 +17,19 @@ class Manipuldate(datetime.datetime):
         return Manipuldate(dt.year, dt.month, dt.day, dt.hour, dt.minute,
                            dt.second, dt.microsecond, dt.tzinfo)
 
+    @staticmethod
+    def instance_from_date(d):
+        """ Creates an instance of Manipuldate based on a supplied date instance.
+
+        Parameters:
+            :param d: Date instance that we will be using to create our new instance.
+
+        Returns:
+            Manipuldate Instance
+        """
+        return Manipuldate(d.year, d.month, d.day)
+
+
     def _copy_to_new_instance(self, year=None, month=None, day=None, hour=None, minute=None,
                       second=None, microsecond=None, tzinfo=None):
         """ Creates a new instance of Manipuldate based on the supplied information,
