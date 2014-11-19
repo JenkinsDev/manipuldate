@@ -21,7 +21,7 @@ class Manipuldate(datetime.datetime):
                            dt.second, dt.microsecond, dt.tzinfo)
 
     @staticmethod
-    def instance_from_date(d):
+    def from_date(d):
         """ Creates an instance of Manipuldate based on a supplied date instance.
 
         Parameters:
@@ -33,7 +33,7 @@ class Manipuldate(datetime.datetime):
         return Manipuldate(d.year, d.month, d.day)
 
     @staticmethod
-    def instance_from_time(t):
+    def from_time(t):
         """ Creates an instance of Manipuldate based on the supplied time instance.
 
         Parameters:

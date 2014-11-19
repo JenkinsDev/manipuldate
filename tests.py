@@ -56,11 +56,11 @@ class TestManipuldateInstances(unittest.TestCase):
         self.assertTrue(isinstance(manip, Manipuldate))
 
     def test_creating_instance_from_date_returns_manipuldate(self):
-        manip = Manipuldate.instance_from_date(self.d)
+        manip = Manipuldate.from_date(self.d)
         self.assertTrue(isinstance(manip, Manipuldate))
 
     def test_crreating_instance_from_time_returns_manipuldate(self):
-        manip = Manipuldate.instance_from_time(self.t)
+        manip = Manipuldate.from_time(self.t)
         self.assertTrue(isinstance(manip, Manipuldate))
 
     def test_response_is_instance_of_manipuldate_on_addition(self):
@@ -92,14 +92,14 @@ class TestManipuldateInstanceCopyingPreservesData(unittest.TestCase):
         self.assertEqual(manip.tzinfo, self.dt.tzinfo)
 
     def test_creating_instance_from_date_preserves_data(self):
-        manip = Manipuldate.instance_from_date(self.d)
+        manip = Manipuldate.from_date(self.d)
         # Now we check all of the date attributes.
         self.assertEqual(manip.year, self.d.year)
         self.assertEqual(manip.month, self.d.month)
         self.assertEqual(manip.day, self.d.day)
 
     def test_creating_instance_from_time_preserves_data(self):
-        manip = Manipuldate.instance_from_time(self.t)
+        manip = Manipuldate.from_time(self.t)
         # Now we check all of the time attributes.
         self.assertEqual(manip.hour, self.t.hour)
         self.assertEqual(manip.minute, self.t.minute)
