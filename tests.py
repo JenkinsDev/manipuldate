@@ -52,7 +52,7 @@ class TestManipuldateInstances(unittest.TestCase):
         self.manip = Manipuldate.strptime("11/21/06", "%m/%d/%y")
 
     def test_creating_instance_from_datetime_returns_manipuldate(self):
-        manip = Manipuldate.instance(self.dt)
+        manip = Manipuldate.from_datetime(self.dt)
         self.assertTrue(isinstance(manip, Manipuldate))
 
     def test_creating_instance_from_date_returns_manipuldate(self):
@@ -80,7 +80,7 @@ class TestManipuldateInstanceCopyingPreservesData(unittest.TestCase):
         self.dt = datetime.datetime.now()
 
     def test_creating_instance_from_datetime_preserves_data(self):
-        manip = Manipuldate.instance(self.dt)
+        manip = Manipuldate.from_datetime(self.dt)
         # Now we check each and every attribute.
         self.assertEqual(manip.year, self.dt.year)
         self.assertEqual(manip.month, self.dt.month)

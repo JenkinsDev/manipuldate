@@ -8,7 +8,7 @@ class Manipuldate(datetime.datetime):
     DEFAULT_TO_STRING_FORMAT = 'Y-m-d H:i:s'
 
     @staticmethod
-    def instance(dt):
+    def from_datetime(dt):
         """ Creates an instance of Manipuldate based on a supplied datetime instance.
 
         Parameters:
