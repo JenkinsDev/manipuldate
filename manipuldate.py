@@ -81,19 +81,51 @@ class Manipuldate(datetime.datetime):
     """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
     def add_years(self, years):
+        """ Adds the amount of provided years to our datetime object then
+        returns a new instance of Manipuldate because of how datetime works
+        within python.
+
+        Parameters:
+            :param years: The number of years to add to the current date.
+
+        Returns:
+            Manipuldate Instance
+        """
         return self._copy_to_new_instance(year=self.year + years)
 
     def add_year(self):
+        """ Convenience method for adding one year, shorter than using
+        add_years, and more pythonic.
+
+        Returns:
+            Manipuldate Instance
+        """
         return self.add_years(1)
 
     def sub_years(self, years):
+        """ Subtracts the amount of provided years from our datetime object
+        then returns a new instance of Manipuldate because of how datetime
+        works within python, no editable properties.
+
+        Parameters:
+            :param years: The number of years to sub from the current date.
+
+        Returns:
+            Manipuldate Instance
+        """
         return self._copy_to_new_instance(year=self.year - years)
 
     def sub_year(self):
+        """ Convenience method for subtracting one year, shorter than using
+        sub_years, and more pythonic.
+
+        Returns:
+            Manipuldate Instance
+        """
         return self.sub_years(1)
 
     def sub_months(self, months):
-        """ Subtracts the amount of provided months to our datetime object
+        """ Subtracts the amount of provided months from our datetime object
         then returns a new instance of Manipuldate because of how datetime
         works within python, no editable properties.
 
