@@ -74,6 +74,24 @@ class Manipuldate(datetime.datetime):
         tzinfo = tzinfo or self.tzinfo
         return Manipuldate(year, month, day, hour, minute, second, microsecond, tzinfo)
 
+    """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+    """                                                                                    """
+    """                                 Date Arithmetic                                    """
+    """                                                                                    """
+    """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+    def add_years(self, years):
+        return self._copy_to_new_instance(year=self.year + years)
+
+    def add_year(self):
+        return self.add_years(1)
+
+    def sub_years(self, years):
+        return self._copy_to_new_instance(year=self.year - years)
+
+    def sub_year(self):
+        return self.sub_years(1)
+
     def sub_months(self, months):
         """ Subtracts the amount of provided months to our datetime object
         then returns a new instance of Manipuldate because of how datetime

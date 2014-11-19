@@ -11,6 +11,22 @@ class TestBasicDateArithmetic(unittest.TestCase):
         # date so we can solidly check the arithmetic
         self.manip = Manipuldate.strptime("11/21/06", "%m/%d/%y")
 
+    def test_add_one_year(self):
+        one_year = self.manip.add_year()
+        self.assertEqual(one_year.year, 2007)
+
+    def test_add_ten_years(self):
+        ten_years = self.manip.add_years(10)
+        self.assertEqual(ten_years.year, 2016)
+
+    def test_sub_one_year(self):
+        one_year = self.manip.sub_year()
+        self.assertEqual(one_year.year, 2005)
+
+    def test_sub_ten_years(self):
+        ten_years = self.manip.sub_years(10)
+        self.assertEqual(ten_years.year, 1996)
+
     def test_add_one_month(self):
         one_month = self.manip.add_month()
         self.assertEqual(one_month.month, 12)
