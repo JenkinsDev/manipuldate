@@ -1,4 +1,5 @@
 import unittest
+import datetime
 
 from manipuldate import Manipuldate
 
@@ -9,10 +10,6 @@ class TestBasicDateArithmetic(unittest.TestCase):
         # Create our instance of Manipuldate based on a set
         # date so we can solidly check the arithmetic
         self.manip = Manipuldate.strptime("11/21/06", "%m/%d/%y")
-
-    def test_response_is_instance_of_manipuldate_addition(self):
-        one_month = self.manip.add_month()
-        self.assertTrue(isinstance(one_month, Manipuldate))
 
     def test_add_one_month(self):
         one_month = self.manip.add_month()
@@ -44,6 +41,25 @@ class TestBasicDateArithmetic(unittest.TestCase):
         one_hundred_months = self.manip.sub_months(100)
         self.assertEqual(one_hundred_months.month, 7)
         self.assertEqual(one_hundred_months.year, 1998)
+
+
+class TestManipuldateInstances(unittest.TestCase):
+
+    def setUp(self):
+        self.dt = datetime.datetime.now()
+        self.manip = Manipuldate.strptime("11/21/06", "%m/%d/%y")
+
+    def test_creating_instance_from_datetime_returns_manipuldate(self):
+        manip = Manipuldate.instance(self.dt)
+        self.assertTrue(isinstance(manip, Manipuldate))
+
+    def test_response_is_instance_of_manipuldate_on_addition(self):
+        one_month = self.manip.add_month()
+        self.assertTrue(isinstance(one_month, Manipuldate))
+
+    def test_response_is_instance_of_manipuldate_on_subtraction(self):
+        one_month = self.manip.sub_month()
+        self.assertTrue(isinstance(one_month, Manipuldate))
 
 
 if __name__ == "__main__":

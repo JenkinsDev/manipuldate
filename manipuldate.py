@@ -4,10 +4,15 @@ import datetime
 class Manipuldate(datetime.datetime):
     """ Easy date/datetime manipulation with Python3.x+ """
 
-    def _new_instance(self, year=0, month=0, day=0, hour=0, minute=0,
-                      second=0, microsecond=0, tzinfo=None):
+    @staticmethod
+    def instance(dt):
+        return Manipuldate(dt.year, dt.month, dt.day, dt.hour, dt.minute,
+                           dt.second, dt.microsecond, dt.tzinfo)
+
+    def _copy_to_new_instance(self, year=None, month=None, day=None, hour=None, minute=None,
+                      second=None, microsecond=None, tzinfo=None):
         """ Creates a new instance of Manipuldate based on the supplied information,
-        if something is set to 0, None or False then we will use the corresponding
+        if something is set to None or False then we will use the corresponding
         attributes value.
 
         Parameters:
@@ -48,11 +53,11 @@ class Manipuldate(datetime.datetime):
         while month <= 0:
             year -= 1
             month += 12
-        return self._new_instance(year=year, month=month)
+        return self._copy_to_new_instance(year=year, month=month)
 
     def sub_month(self):
         """ Convenience method for subtracting 1 month, shorter than using
-        sub_months, anmd more pythonic.
+        sub_months, and more pythonic.
 
         Returns:
             Manipuldate Instance
@@ -74,7 +79,7 @@ class Manipuldate(datetime.datetime):
         while month > 12:
             year += 1
             month -= 12
-        return self._new_instance(year=year, month=month)
+        return self._copy_to_new_instance(year=year, month=month)
 
     def add_month(self):
         """ Convenience method for adding 1 month, shorter than using
