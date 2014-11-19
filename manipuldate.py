@@ -2,9 +2,10 @@ import datetime
 
 
 class Manipuldate(datetime.datetime):
-    """ Easy date/datetime manipulation with Python3.x+ """
+    """ Easy date/time/datetime manipulation with Python3.x+ """
 
     SECONDS_IN_DAY = 60 * 60 * 24
+    DEFAULT_TO_STRING_FORMAT = 'Y-m-d H:i:s'
 
     @staticmethod
     def instance(dt):
@@ -30,6 +31,19 @@ class Manipuldate(datetime.datetime):
             Manipuldate Instance
         """
         return Manipuldate(d.year, d.month, d.day)
+
+    @staticmethod
+    def instance_from_time(t):
+        """ Creates an instance of Manipuldate based on the supplied time instance.
+
+        Parameters:
+            :param t: Time instance that we will be using to create our new isntance.
+
+        Returns:
+            Manipuldate Instance
+        """
+        # Year, month and day are required by the datetime class.
+        return Manipuldate(1970, 1, 1, t.hour, t.minute, t.second, t.microsecond, t.tzinfo)
 
     def _copy_to_new_instance(self, year=None, month=None, day=None, hour=None, minute=None,
                       second=None, microsecond=None, tzinfo=None):

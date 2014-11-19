@@ -47,6 +47,7 @@ class TestManipuldateInstances(unittest.TestCase):
 
     def setUp(self):
         self.d = datetime.date.today()
+        self.t = datetime.time(10, 30, 41, 1)
         self.dt = datetime.datetime.now()
         self.manip = Manipuldate.strptime("11/21/06", "%m/%d/%y")
 
@@ -56,6 +57,10 @@ class TestManipuldateInstances(unittest.TestCase):
 
     def test_creating_instance_from_date_returns_manipuldate(self):
         manip = Manipuldate.instance_from_date(self.d)
+        self.assertTrue(isinstance(manip, Manipuldate))
+
+    def test_crreating_instance_from_time_returns_manipuldate(self):
+        manip = Manipuldate.instance_from_time(self.t)
         self.assertTrue(isinstance(manip, Manipuldate))
 
     def test_response_is_instance_of_manipuldate_on_addition(self):
@@ -71,6 +76,7 @@ class TestManipuldateInstanceCopyingPreservesData(unittest.TestCase):
 
     def setUp(self):
         self.d = datetime.date.today()
+        self.t = datetime.time(10, 30, 41, 1)
         self.dt = datetime.datetime.now()
 
     def test_creating_instance_from_datetime_preserves_data(self):
@@ -91,6 +97,20 @@ class TestManipuldateInstanceCopyingPreservesData(unittest.TestCase):
         self.assertEqual(manip.year, self.d.year)
         self.assertEqual(manip.month, self.d.month)
         self.assertEqual(manip.day, self.d.day)
+
+    def test_creating_instance_from_time_preserves_data(self):
+        manip = Manipuldate.instance_from_time(self.t)
+        # Now we check all of the time attributes.
+        self.assertEqual(manip.hour, self.t.hour)
+        self.assertEqual(manip.minute, self.t.minute)
+        self.assertEqual(manip.second, self.t.second)
+        self.assertEqual(manip.microsecond, self.t.microsecond)
+        self.assertEqual(manip.tzinfo, self.t.tzinfo)
+        # Just because with datetime the year, month and day are required
+        # we will go ahead and check to make sure they are set to 1/1/1970
+        self.assertEqual(manip.year, 1970)
+        self.assertEqual(manip.month, 1)
+        self.assertEqual(manip.day, 1)
 
 
 if __name__ == "__main__":
