@@ -126,32 +126,6 @@ class Manipuldate(datetime.datetime):
         """
         return self.sub_years(1)
 
-    def sub_months(self, months):
-        """ Subtracts the amount of provided months from our datetime object
-        then returns a new instance of Manipuldate because of how datetime
-        works within python, no editable properties.
-
-        Parameters:
-            :param months: The number of months to sub from the current date.
-
-        Returns:
-            Manipuldate Instance
-        """
-        month, year = self.month - months, self.year
-        while month <= 0:
-            year -= 1
-            month += 12
-        return self._copy_to_new_instance(year=year, month=month)
-
-    def sub_month(self):
-        """ Convenience method for subtracting 1 month, shorter than using
-        sub_months, and more pythonic.
-
-        Returns:
-            Manipuldate Instance
-        """
-        return self.sub_months(1)
-
     def add_months(self, months):
         """ Adds the amount of provided months to our datetime object
         then returns a new instance of Manipuldate because of how datetime
@@ -178,6 +152,53 @@ class Manipuldate(datetime.datetime):
         """
         return self.add_months(months=1)
 
+    def sub_months(self, months):
+        """ Subtracts the amount of provided months from our datetime object
+        then returns a new instance of Manipuldate because of how datetime
+        works within python, no editable properties.
+
+        Parameters:
+            :param months: The number of months to sub from the current date.
+
+        Returns:
+            Manipuldate Instance
+        """
+        month, year = self.month - months, self.year
+        while month <= 0:
+            year -= 1
+            month += 12
+        return self._copy_to_new_instance(year=year, month=month)
+
+    def sub_month(self):
+        """ Convenience method for subtracting 1 month, shorter than using
+        sub_months, and more pythonic.
+
+        Returns:
+            Manipuldate Instance
+        """
+        return self.sub_months(1)
+
+    def add_weeks(self, weeks):
+        """ Convenience method for adding n-weeks * 7 days, shorter than
+        using add_days and calculating the weeks yourself.
+
+        Parameters:
+            :param weeks: N weeks to add to the current date.
+
+        Returns:
+            Manipuldate Instance
+        """
+        return self.add_days(self.DAYS_IN_WEEK * weeks)
+
+    def add_week(self):
+        """ Convenience method for adding 1 week, shorter than using
+        using add_days(7) or add_weeks(1), and more pythonic.
+
+        Returns:
+            Manipuldate Instance
+        """
+        return self.add_weeks(1)
+
     def add_days(self, days):
         """ Adds the amount of provided days to our datetime object then
         returns a new instance of Manipuldate because of how datetime works
@@ -200,11 +221,25 @@ class Manipuldate(datetime.datetime):
         """
         return self.add_days(1)
 
-    def add_week(self):
-        """ Convenience method for adding 7 days, shorter than using
+    def sub_days(self, days):
+        """ Subtracts the amount of provided days from our datetime object then
+        returns a new instance of Manipuldate because of how datetime works
+        within python, no editable properties.
+
+        Parameters:
+            :param days: The number of months to subtract to the current date.
+
+        Returns:
+            Manipuldate Instance
+        """
+        return Manipuldate.from_datetime(self - datetime.timedelta(days=days))
+
+    def sub_day(self):
+        """ Convenience method for subtracting 1 day, shorter than using
         add_days, and more pythonic.
 
         Returns:
             Manipuldate Instance
         """
-        return self.add_days(self.DAYS_IN_WEEK)
+        return self.sub_days(1)
+

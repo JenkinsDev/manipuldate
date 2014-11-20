@@ -68,13 +68,24 @@ class TestBasicDateArithmetic(unittest.TestCase):
         self.assertEqual(newer_date.year, 2006)
         self.assertEqual(newer_date.month, 11)
 
+    def test_addition_of_weeks(self):
+        one_week = self.manip.add_week()
+        two_weeks = self.manip.add_weeks(2)
+        self.assertEqual(one_week.day, 28)
+        self.assertEqual(two_weeks.month, 12)
+        self.assertEqual(two_weeks.day, 5)
+
     def test_addition_of_days_works(self):
         one_day = self.manip.add_day()
         three_days = self.manip.add_days(3)
-        week = self.manip.add_week()
         self.assertEqual(one_day.day, 22)
         self.assertEqual(three_days.day, 24)
-        self.assertEqual(week.day, 28)
+
+    def test_subtraction_of_days(self):
+        one_day = self.manip.sub_day()
+        three_days = self.manip.sub_days(3)
+        self.assertEqual(one_day.day, 20)
+        self.assertEqual(three_days.day, 18)
 
 
 
