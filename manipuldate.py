@@ -121,15 +121,6 @@ class Manipuldate(datetime.datetime):
         """
         return self._copy_to_new_instance(year=self.year + years)
 
-    def add_year(self):
-        """ Convenience method for adding one year, shorter than using
-        add_years, and more pythonic.
-
-        Returns:
-            Manipuldate Instance
-        """
-        return self.add_years(1)
-
     def sub_years(self, years):
         """ Subtracts the amount of provided years from our datetime object
         then returns a new instance of Manipuldate because of how datetime
@@ -142,15 +133,6 @@ class Manipuldate(datetime.datetime):
             Manipuldate Instance
         """
         return self._copy_to_new_instance(year=self.year - years)
-
-    def sub_year(self):
-        """ Convenience method for subtracting one year, shorter than using
-        sub_years, and more pythonic.
-
-        Returns:
-            Manipuldate Instance
-        """
-        return self.sub_years(1)
 
     def add_months(self, months):
         """ Adds the amount of provided months to our datetime object
@@ -169,15 +151,6 @@ class Manipuldate(datetime.datetime):
             month -= 12
         return self._copy_to_new_instance(year=year, month=month)
 
-    def add_month(self):
-        """ Convenience method for adding 1 month, shorter than using
-        add_months, and more pythonic.
-
-        Returns:
-            Manipuldate Instance
-        """
-        return self.add_months(months=1)
-
     def sub_months(self, months):
         """ Subtracts the amount of provided months from our datetime object
         then returns a new instance of Manipuldate because of how datetime
@@ -195,18 +168,8 @@ class Manipuldate(datetime.datetime):
             month += 12
         return self._copy_to_new_instance(year=year, month=month)
 
-    def sub_month(self):
-        """ Convenience method for subtracting 1 month, shorter than using
-        sub_months, and more pythonic.
-
-        Returns:
-            Manipuldate Instance
-        """
-        return self.sub_months(1)
-
     def add_weeks(self, weeks):
-        """ Convenience method for adding n-weeks * 7 days, shorter than
-        using add_days and calculating the weeks yourself.
+        """ Adds n-weeks * 7 days to the current date.
 
         Parameters:
             :param weeks: N weeks to add to the current date.
@@ -216,14 +179,13 @@ class Manipuldate(datetime.datetime):
         """
         return self.add_days(self.DAYS_IN_WEEK * weeks)
 
-    def add_week(self):
-        """ Convenience method for adding 1 week, shorter than using
-        using add_days(7) or add_weeks(1), and more pythonic.
+    def sub_weeks(self, weeks):
+        """ Subtracts n-weeks * 7 days form the current date.
 
-        Returns:
-            Manipuldate Instance
+        Parameters:
+            :param weeks: N-weeks to subtract from the current date.
         """
-        return self.add_weeks(1)
+        return self.sub_days(self.DAYS_IN_WEEK * weeks)
 
     def add_days(self, days):
         """ Adds the amount of provided days to our datetime object then
@@ -238,15 +200,6 @@ class Manipuldate(datetime.datetime):
         """
         return Manipuldate.from_datetime(self + datetime.timedelta(days=days))
 
-    def add_day(self):
-        """ Convenience method for adding 1 day, shorter than using
-        add_days, and more pythonic.
-
-        Returns:
-            Manipuldate Instance
-        """
-        return self.add_days(1)
-
     def sub_days(self, days):
         """ Subtracts the amount of provided days from our datetime object then
         returns a new instance of Manipuldate because of how datetime works
@@ -260,11 +213,131 @@ class Manipuldate(datetime.datetime):
         """
         return Manipuldate.from_datetime(self - datetime.timedelta(days=days))
 
+    ########################## DATE ARITHMETIC CONVENIENCE METHODS ##########################
+
+    def add_year(self):
+        """ Convenience method for adding one year.
+
+        Returns:
+            Manipuldate Instance
+        """
+        return self.add_years(1)
+
+    def next_year(self):
+        """ Convenience method for adding one year.
+
+        Returns:
+            Manipuldate Instance
+        """
+        return self.add_year()
+
+    def sub_year(self):
+        """ Convenience method for subtracting one year.
+
+        Returns:
+            Manipuldate Instance
+        """
+        return self.sub_years(1)
+
+    def last_year(self):
+        """ Convenience method for subtracting one year.
+
+        Returns:
+            Manipuldate Instance
+        """
+        return self.sub_year()
+
+    def add_month(self):
+        """ Convenience method for adding one month.
+
+        Returns:
+            Manipuldate Instance
+        """
+        return self.add_months(months=1)
+
+    def next_month(self):
+        """ Convenience method for adding one month.
+
+        Returns:
+            Manipuldate Instance
+        """
+        return self.add_month()
+
+    def sub_month(self):
+        """ Convenience method for subtracting one month.
+
+        Returns:
+            Manipuldate Instance
+        """
+        return self.sub_months(1)
+
+    def last_month(self):
+        """ Convenience method for subtracting one month.
+
+        Returns:
+            Manipuldate Instance
+        """
+        return self.sub_month()
+
+    def add_week(self):
+        """ Convenience method for adding one week.
+        Returns:
+            Manipuldate Instance
+        """
+        return self.add_weeks(1)
+
+    def next_week(self):
+        """ Convenience method for adding one week.
+
+        Returns:
+            Manipuldate Instance
+        """
+        return self.add_week()
+
+    def sub_week(self):
+        """ Convenience method for subtracting one week.
+
+        Returns:
+            Manipuldate Instance
+        """
+        return self.sub_weeks(1)
+
+    def last_week(self):
+        """ Convenience method for subtracting one week.
+
+        Returns:
+            Manipuldate Instance
+        """
+        return self.sub_week()
+
+    def add_day(self):
+        """ Convenience method for adding one day.
+
+        Returns:
+            Manipuldate Instance
+        """
+        return self.add_days(1)
+
+    def tomorrow(self):
+        """ Convenience method for adding one day.
+
+        Returns:
+            Manipuldate Instance
+        """
+        return self.add_day()
+
     def sub_day(self):
-        """ Convenience method for subtracting 1 day, shorter than using
-        sub_days, and more pythonic.
+        """ Convenience method for subtracting one day.
 
         Returns:
             Manipuldate Instance
         """
         return self.sub_days(1)
+
+    def yesterday(self):
+        """ Convenience method for subtracting one day.
+
+        Returns:
+            Manipuldate Instance
+        """
+        return self.sub_day()
