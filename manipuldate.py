@@ -227,7 +227,7 @@ class Manipuldate(datetime.datetime):
         within python, no editable properties.
 
         Parameters:
-            :param days: The number of months to subtract to the current date.
+            :param days: The number of months to subtract from the current date.
 
         Returns:
             Manipuldate Instance
@@ -236,7 +236,7 @@ class Manipuldate(datetime.datetime):
 
     def sub_day(self):
         """ Convenience method for subtracting 1 day, shorter than using
-        add_days, and more pythonic.
+        sub_days, and more pythonic.
 
         Returns:
             Manipuldate Instance
