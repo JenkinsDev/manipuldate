@@ -4,10 +4,30 @@ import datetime
 class Manipuldate(datetime.datetime):
     """ Easy date/time/datetime manipulation with Python3.x+ """
 
-    SECONDS_IN_DAY = 60 * 60 * 24
     DEFAULT_TO_STRING_FORMAT = 'Y-m-d H:i:s'
 
+    DAYS_IN_YEAR = 365
     DAYS_IN_WEEK = 7
+
+    SECONDS_IN_DAY = 60 * 60 * 24
+
+    SUNDAY = 0
+    MONDAY = 1
+    TUESDAY = 2
+    WEDNESDAY = 3
+    THURSDAY = 4
+    FRIDAY = 5
+    SATURDAY = 6
+
+    DAYS_OF_WEEK = {
+        SUNDAY: "Sunday",
+        MONDAY: "Monday",
+        TUESDAY: "Tuesday",
+        WEDNESDAY: "Wednesday",
+        THURSDAY: "Thursday",
+        FRIDAY: "Friday",
+        SATURDAY: "Saturday"
+    }
 
     @staticmethod
     def from_datetime(dt):
@@ -242,4 +262,3 @@ class Manipuldate(datetime.datetime):
             Manipuldate Instance
         """
         return self.sub_days(1)
-
