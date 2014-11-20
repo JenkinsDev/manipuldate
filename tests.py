@@ -36,7 +36,7 @@ class TestBasicDateArithmetic(unittest.TestCase):
         self.assertEqual(two_months.month, 1)
         self.assertEqual(two_months.year, 2007)
 
-    def test_add_one_hundred_months_and_year_wrap(self):
+    def test_add_one_hundred_months_and_year_wraps(self):
         # We want to make sure that when adding (n) months that the
         # year will always continuing wrapping until we have reached
         # the correct date.
@@ -68,6 +68,15 @@ class TestBasicDateArithmetic(unittest.TestCase):
         self.assertEqual(newer_date.year, 2006)
         self.assertEqual(newer_date.month, 11)
 
+    def test_addition_of_days_works(self):
+        one_day = self.manip.add_day()
+        three_days = self.manip.add_days(3)
+        week = self.manip.add_week()
+        self.assertEqual(one_day.day, 22)
+        self.assertEqual(three_days.day, 24)
+        self.assertEqual(week.day, 28)
+
+
 
 class TestManipuldateInstances(unittest.TestCase):
 
@@ -91,11 +100,17 @@ class TestManipuldateInstances(unittest.TestCase):
 
     def test_response_is_instance_of_manipuldate_on_addition(self):
         one_month = self.manip.add_month()
+        one_year = self.manip.add_year()
+        one_day = self.manip.add_day()
         self.assertTrue(isinstance(one_month, Manipuldate))
+        self.assertTrue(isinstance(one_year, Manipuldate))
+        self.assertTrue(isinstance(one_day, Manipuldate))
 
     def test_response_is_instance_of_manipuldate_on_subtraction(self):
         one_month = self.manip.sub_month()
+        one_year = self.manip.sub_year()
         self.assertTrue(isinstance(one_month, Manipuldate))
+        self.assertTrue(isinstance(one_year, Manipuldate))
 
 
 class TestManipuldateInstanceCopyingPreservesData(unittest.TestCase):

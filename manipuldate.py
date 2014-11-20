@@ -7,6 +7,8 @@ class Manipuldate(datetime.datetime):
     SECONDS_IN_DAY = 60 * 60 * 24
     DEFAULT_TO_STRING_FORMAT = 'Y-m-d H:i:s'
 
+    DAYS_IN_WEEK = 7
+
     @staticmethod
     def from_datetime(dt):
         """ Creates an instance of Manipuldate based on a supplied datetime instance.
@@ -175,3 +177,34 @@ class Manipuldate(datetime.datetime):
             Manipuldate Instance
         """
         return self.add_months(months=1)
+
+    def add_days(self, days):
+        """ Adds the amount of provided days to our datetime object then
+        returns a new instance of Manipuldate because of how datetime works
+        within python, no editable properties.
+
+        Parameters:
+            :param days: The number of months to add to the current date.
+
+        Returns:
+            Manipuldate Instance
+        """
+        return Manipuldate.from_datetime(self + datetime.timedelta(days=days))
+
+    def add_day(self):
+        """ Convenience method for adding 1 day, shorter than using
+        add_days, and more pythonic.
+
+        Returns:
+            Manipuldate Instance
+        """
+        return self.add_days(1)
+
+    def add_week(self):
+        """ Convenience method for adding 7 days, shorter than using
+        add_days, and more pythonic.
+
+        Returns:
+            Manipuldate Instance
+        """
+        return self.add_days(self.DAYS_IN_WEEK)
