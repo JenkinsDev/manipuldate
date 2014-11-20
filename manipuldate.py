@@ -4,12 +4,18 @@ import datetime
 class Manipuldate(datetime.datetime):
     """ Easy date/time/datetime manipulation with Python3.x+ """
 
-    DEFAULT_TO_STRING_FORMAT = 'Y-m-d H:i:s'
+    DEFAULT_STRING_FORMAT = 'Y-m-d H:i:s'
 
+    # Amount time/dates in (x)
+    YEARS_IN_CENTURY = 100
+    YEARS_IN_DECADE = 10
+    MONTHS_IN_YEAR = 12
+    WEEKS_IN_YEAR = 52
     DAYS_IN_YEAR = 365
     DAYS_IN_WEEK = 7
-
-    SECONDS_IN_DAY = 60 * 60 * 24
+    HOURS_IN_DAY = 24
+    MINUTES_IN_HOURS = 60
+    SECONDS_IN_MINUTE = 60
 
     SUNDAY = 0
     MONDAY = 1
