@@ -341,3 +341,18 @@ class Manipuldate(datetime.datetime):
             Manipuldate Instance
         """
         return self.sub_day()
+
+    """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+    """                                                                                    """
+    """                                   Date Logic                                       """
+    """                                                                                    """
+    """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+    def is_weekend(self):
+        """ Returns a boolean answer to whether the current day is a weekend.
+
+        Returns:
+            Boolean
+        """
+        day_of_weeks = self.weekday()
+        return day_of_weeks == self.SUNDAY or day_of_weeks == self.SATURDAY
