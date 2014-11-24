@@ -1,2 +1,4 @@
 # Manipuldate
-Date/Time/DateTime Manipulation Done Right.
+Date/Time/DateTime Manipulation Done Right
+
+## 

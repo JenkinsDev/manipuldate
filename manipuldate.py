@@ -17,13 +17,13 @@ class Manipuldate(datetime.datetime):
     MINUTES_IN_HOURS = 60
     SECONDS_IN_MINUTE = 60
 
-    SUNDAY = 0
-    MONDAY = 1
-    TUESDAY = 2
-    WEDNESDAY = 3
-    THURSDAY = 4
-    FRIDAY = 5
-    SATURDAY = 6
+    MONDAY = 0
+    TUESDAY = 1
+    WEDNESDAY = 2
+    THURSDAY = 3
+    FRIDAY = 4
+    SATURDAY = 5
+    SUNDAY = 6
 
     DAYS_OF_WEEK = {
         SUNDAY: "Sunday",
@@ -349,10 +349,20 @@ class Manipuldate(datetime.datetime):
     """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
     def is_weekend(self):
-        """ Returns a boolean answer to whether the current day is a weekend.
+        """ Returns a boolean answer that answers whether or not the current date is
+        a weekend.
 
         Returns:
             Boolean
         """
         day_of_weeks = self.weekday()
         return day_of_weeks == self.SUNDAY or day_of_weeks == self.SATURDAY
+
+    def is_weekday(self):
+        """ Returns a boolean answer that answers whether or not the current date is
+        a weekday.
+
+        Returns:
+            Boolean
+        """
+        return not self.is_weekend()
