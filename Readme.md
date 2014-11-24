@@ -2,6 +2,10 @@
 Date/Time/DateTime Manipulation Done Right 
 <sub><sub>Still In Active Development - Not Production Ready</sub></sub>
 
+### Badges
+Master: [![Build Status](https://travis-ci.org/JenkinsDev/manipuldate.svg?branch=master)](https://travis-ci.org/JenkinsDev/manipuldate)
+Develop: [![Build Status](https://travis-ci.org/JenkinsDev/manipuldate.svg?branch=develop)](https://travis-ci.org/JenkinsDev/manipuldate)
+
 ## Installation
 
 Coming Soon (Pip Installation): `pip install manipuldate`
