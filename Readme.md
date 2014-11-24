@@ -1,5 +1,6 @@
 # Manipuldate
-Date/Time/DateTime Manipulation Done Right
+Date/Time/DateTime Manipulation Done Right 
+<sub><sub>Still In Active Development - Not Production Ready</sub></sub>
 
 ## Installation
 
