@@ -4,6 +4,7 @@ Date/Time/DateTime Manipulation Done Right
 ## Installation
 
 Coming Soon (Pip Installation): `pip install manipuldate`
+
 Current Installation Process: `git clone https://github.com/JenkinsDev/manipuldate.git`
 
 ## Trivial Usage
