@@ -102,12 +102,12 @@ class Manipuldate(datetime.datetime):
         tzinfo = tzinfo or self.tzinfo
         return Manipuldate(year, month, day, hour, minute, second, microsecond, tzinfo)
 
-    """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-    """                                                                                    """
-    """                                 Date Arithmetic                                    """
-    """                                                                                    """
-    """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
+    ##########################################################################################
+    ###                                                                                    ###
+    ###                                 Date Arithmetic                                    ###
+    ###                                                                                    ###
+    ##########################################################################################
+    
     def add_years(self, years):
         """ Adds the amount of provided years to our datetime object then
         returns a new instance of Manipuldate because of how datetime works
@@ -342,11 +342,11 @@ class Manipuldate(datetime.datetime):
         """
         return self.sub_day()
 
-    """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-    """                                                                                    """
-    """                                   Date Logic                                       """
-    """                                                                                    """
-    """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+    ##########################################################################################
+    ###                                                                                    
+    ###                                   Date Logic                                       ###
+    ###                                                                                    ###
+    ##########################################################################################
 
     def is_weekend(self):
         """ Returns a boolean answer that answers whether or not the current date is
