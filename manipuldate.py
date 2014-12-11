@@ -107,7 +107,7 @@ class Manipuldate(datetime.datetime):
     ###                                 Date Arithmetic                                    ###
     ###                                                                                    ###
     ##########################################################################################
-    
+
     def add_years(self, years):
         """ Adds the amount of provided years to our datetime object then
         returns a new instance of Manipuldate because of how datetime works
@@ -343,7 +343,7 @@ class Manipuldate(datetime.datetime):
         return self.sub_day()
 
     ##########################################################################################
-    ###                                                                                    
+    ###                                                                                    ###
     ###                                   Date Logic                                       ###
     ###                                                                                    ###
     ##########################################################################################
