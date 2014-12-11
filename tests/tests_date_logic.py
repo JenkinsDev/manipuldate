@@ -5,14 +5,15 @@ from ..manipuldate import Manipuldate
 
 class TestDateLogic(unittest.TestCase):
 
-    def test_weekend_logic(self):
+    def setUp(self):
         # 11/22/2014 is a Saturday
-        saturday_date = Manipuldate(2014, 11, 22)
-        self.assertTrue(saturday_date.is_weekend())
-
+        self.saturday_date = Manipuldate(2014, 11, 22)
         # 11/23/2014 is a Sunday
-        sunday_date = Manipuldate(2014, 11, 23)
-        self.assertTrue(sunday_date.is_weekend())
+        self.sunday_date = Manipuldate(2014, 11, 23)
+
+    def test_weekend_logic(self):
+        self.assertTrue(self.saturday_date.is_weekend())
+        self.assertTrue(self.sunday_date.is_weekend())
 
         # 11/24/2014 - 11/28/2014 are all weekdays (Monday - Friday)
         week_days = [24, 25, 26, 27, 28]
@@ -21,13 +22,8 @@ class TestDateLogic(unittest.TestCase):
             self.assertFalse(week_day_date.is_weekend())
 
     def test_weekday_logic(self):
-        # 11/22/2014 is a Saturday
-        saturday_date = Manipuldate(2014, 11, 22)
-        self.assertFalse(saturday_date.is_weekday())
-
-        # 11/23/2014 is a Sunday
-        sunday_date = Manipuldate(2014, 11, 23)
-        self.assertFalse(sunday_date.is_weekday())
+        self.assertFalse(self.saturday_date.is_weekday())
+        self.assertFalse(self.sunday_date.is_weekday())
 
         # 11/24/2014 - 11/28/2014 are all weekdays (Monday - Friday)
         week_days = [24, 25, 26, 27, 28]

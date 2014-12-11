@@ -1,9 +1,10 @@
 # Manipuldate
-Date/Time/DateTime Manipulation Done Right 
+Date/Time/DateTime Manipulation Done Right
 <sub><sub>Still In Active Development - Not Production Ready</sub></sub>
 
 ### Badges
 [![Build Status](https://travis-ci.org/JenkinsDev/manipuldate.svg?branch=master)](https://travis-ci.org/JenkinsDev/manipuldate)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/JenkinsDev/manipuldate/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/JenkinsDev/manipuldate/?branch=master)
 
 ## Installation
 
