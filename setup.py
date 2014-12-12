@@ -20,6 +20,7 @@ setup(
     author_email='david.nicholas.jenkins@gmail.com',
     py_modules=['manipuldate', ],
     include_package_data=True,
+    test_suite='tests',
     classifiers=[
         'Development Status :: 5 - Production/Stable',
         'Intended Audience :: Developers',

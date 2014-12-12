@@ -1,7 +1,7 @@
 import unittest
 import datetime
 
-from ..manipuldate import Manipuldate
+from manipuldate import Manipuldate
 
 
 class TestManipuldateInstances(unittest.TestCase):
@@ -20,7 +20,7 @@ class TestManipuldateInstances(unittest.TestCase):
         manip = Manipuldate.from_date(self.d)
         self.assertTrue(isinstance(manip, Manipuldate))
 
-    def test_crreating_instance_from_time_returns_manipuldate(self):
+    def test_creating_instance_from_time_returns_manipuldate(self):
         manip = Manipuldate.from_time(self.t)
         self.assertTrue(isinstance(manip, Manipuldate))
 

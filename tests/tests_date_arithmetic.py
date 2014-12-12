@@ -1,6 +1,6 @@
 import unittest
 
-from ..manipuldate import Manipuldate
+from manipuldate import Manipuldate
 
 
 class TestBasicDateArithmetic(unittest.TestCase):
