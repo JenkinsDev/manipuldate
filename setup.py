@@ -18,7 +18,7 @@ setup(
     license='MIT',
     author='David Jenkins',
     author_email='david.nicholas.jenkins@gmail.com',
-    py_modules=['manipuldate', ],
+    packages=['manipuldate', ],
     include_package_data=True,
     test_suite='tests',
     classifiers=[
