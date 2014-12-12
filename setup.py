@@ -13,7 +13,7 @@ setup(
     name='manipuldate',
     version='0.1.0',
     description='Date/Time/DateTime Manipulation Done Right S',
-    long_description=read('ReadMe.md'),
+    long_description=read('.', 'ReadMe.md'),
     url='https://github.com/JenkinsDev/manipuldate',
     license='MIT',
     author='David Jenkins',
