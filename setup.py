@@ -11,14 +11,17 @@ def read(*paths):
 
 setup(
     name='manipuldate',
-    version='0.1.0',
-    description='Date/Time/DateTime Manipulation Done Right S',
+    version='0.2.0',
+    description='Date/Time/DateTime Manipulation Done Right',
     long_description=read('.', 'ReadMe.md'),
     url='https://github.com/JenkinsDev/manipuldate',
     license='MIT',
     author='David Jenkins',
     author_email='david.nicholas.jenkins@gmail.com',
     packages=['manipuldate', ],
+    install_requires=[
+        'enum34',
+    ],
     include_package_data=True,
     test_suite='tests',
     classifiers=[

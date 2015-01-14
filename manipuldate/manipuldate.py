@@ -1,83 +1,148 @@
 import datetime
 
+from enums import DaysOfWeek, DateTimeDefaults
+
 
 class Manipuldate(datetime.datetime):
     """ Easy date/time/datetime manipulation with Python3.x+ """
 
     DEFAULT_STRING_FORMAT = 'Y-m-d H:i:s'
 
-    # Amount time/dates in (x)
-    YEARS_IN_CENTURY = 100
-    YEARS_IN_DECADE = 10
-    MONTHS_IN_YEAR = 12
-    WEEKS_IN_YEAR = 52
-    DAYS_IN_YEAR = 365
-    DAYS_IN_WEEK = 7
-    HOURS_IN_DAY = 24
-    MINUTES_IN_HOURS = 60
-    SECONDS_IN_MINUTE = 60
+    ############################################################################
+    ###                                                                      ###
+    ###                      Initialization Methods                          ###
+    ###                                                                      ###
+    ############################################################################
 
-    MONDAY = 0
-    TUESDAY = 1
-    WEDNESDAY = 2
-    THURSDAY = 3
-    FRIDAY = 4
-    SATURDAY = 5
-    SUNDAY = 6
-
-    DAYS_OF_WEEK = {
-        SUNDAY: "Sunday",
-        MONDAY: "Monday",
-        TUESDAY: "Tuesday",
-        WEDNESDAY: "Wednesday",
-        THURSDAY: "Thursday",
-        FRIDAY: "Friday",
-        SATURDAY: "Saturday"
-    }
-
-    @staticmethod
-    def from_datetime(dt):
-        """ Creates an instance of Manipuldate based on a supplied datetime instance.
-
-        Parameters:
-            :param dt: Datetime instance that we will be using to create our instance.
+    @classmethod
+    def tomorrow(cls):
+        """ Convenience method that will create a Manipuldate for tomorrow.
 
         Returns:
             Manipuldate Instance
         """
-        return Manipuldate(dt.year, dt.month, dt.day, dt.hour, dt.minute,
+        return cls.today().add_day()
+
+    @classmethod
+    def yesterday(cls):
+        """ Convenience method that will create a Manipuldate for yesterday.
+
+        Returns:
+            Manipuldate Instance
+        """
+        return cls.today().sub_day()
+
+    @classmethod
+    def next_week(cls):
+        """ Convenience method that will create a Manipuldate for next week.
+        This method will just add seven days to today.
+
+        Returns:
+            Manipuldate Instance
+        """
+        return cls.today().add_week()
+
+    @classmethod
+    def last_week(cls):
+        """ Convenience method that will create a Manipuldate for next week.
+        This method will just subtract seven days to today.
+
+        Returns:
+            Manipuldate Instance
+        """
+        return cls.today().sub_week()
+
+    @classmethod
+    def next_month(cls):
+        """ Convenience method that will create a Manipuldate for next week.
+        This method will add 1 to the current (today's) month.
+
+        Returns:
+            Manipuldate Instance
+        """
+        return cls.today().add_month()
+
+    @classmethod
+    def last_month(cls):
+        """ Convenience method that will create a Manipuldate for next week.
+        This method will subtract 1 to the current (today's) month.
+
+        Returns:
+            Manipuldate Instance
+        """
+        return cls.today().sub_month()
+
+    @classmethod
+    def next_year(cls):
+        """ Convenience method that will create a Manipuldate for next week.
+        This method will add 1 to the current (today's) year.
+
+        Returns:
+            Manipuldate Instance
+        """
+        return cls.today().add_year()
+
+    @classmethod
+    def last_year(cls):
+        """ Convenience method that will create a Manipuldate for next week.
+        This method will subtract 1 to the current (today's) year.
+
+        Returns:
+            Manipuldate Instance
+        """
+        return cls.today().sub_year()
+
+    @classmethod
+    def from_datetime(cls, dt):
+        """ Creates an instance of Manipuldate based on a supplied datetime
+        instance.
+
+        Parameters:
+            :param dt: Datetime instance that we will be using to create our
+                       instance.
+
+        Returns:
+            Manipuldate Instance
+        """
+        return cls(dt.year, dt.month, dt.day, dt.hour, dt.minute,
                            dt.second, dt.microsecond, dt.tzinfo)
 
-    @staticmethod
-    def from_date(d):
+    @classmethod
+    def from_date(cls, d):
         """ Creates an instance of Manipuldate based on a supplied date instance.
 
         Parameters:
-            :param d: Date instance that we will be using to create our new instance.
+            :param d: Date instance that we will be using to create our new
+                      instance.
 
         Returns:
             Manipuldate Instance
         """
-        return Manipuldate(d.year, d.month, d.day)
+        return cls(d.year, d.month, d.day)
 
-    @staticmethod
-    def from_time(t):
-        """ Creates an instance of Manipuldate based on the supplied time instance.
+    @classmethod
+    def from_time(cls, t):
+        """ Creates an instance of Manipuldate based on the supplied time
+        instance.
 
         Parameters:
-            :param t: Time instance that we will be using to create our new isntance.
+            :param t: Time instance that we will be using to create our new
+                      instance.
 
         Returns:
             Manipuldate Instance
         """
-        # Year, month and day are required by the datetime class.
-        return Manipuldate(1970, 1, 1, t.hour, t.minute, t.second, t.microsecond, t.tzinfo)
+        # Year, month and day are required by the datetime class which we
+        # extend with manipuldate.
+        return cls(1970, 1, 1, t.hour, t.minute, t.second,
+                           t.microsecond, t.tzinfo)
 
-    def _copy_to_new_instance(self, year=None, month=None, day=None, hour=None, minute=None,
-                      second=None, microsecond=None, tzinfo=None):
-        """ Creates a new instance of Manipuldate based on the supplied information,
-        if something is set to None or False then we will use the corresponding
-        attributes value.
+    def _copy_to_new_instance(self, year=None, month=None, day=None, hour=None,
+                              minute=None, second=None, microsecond=None,
+                              tzinfo=None):
+        """ Creates a new instance of Manipuldate based on the supplied
+        information, if something is set to None or False then we will use the
+        corresponding attributes value.
 
         Parameters:
             :param year: Numerical value that represents years
@@ -86,7 +151,8 @@ class Manipuldate(datetime.datetime):
             :param hour: Numerical value that represents hours [0-24]
             :param minute: Numerical value that represents minutes [0-60]
             :param second: Numerical value that represents seconds [0-60]
-            :param second: Numerical value that represents microseconds [0-1000000]
+            :param second: Numerical value that represents microseconds
+                           [0-1000000]
             :param tzinfo: TimeZone information
 
         Returns:
@@ -100,13 +166,14 @@ class Manipuldate(datetime.datetime):
         second = second or self.second
         microsecond = microsecond or self.microsecond
         tzinfo = tzinfo or self.tzinfo
-        return Manipuldate(year, month, day, hour, minute, second, microsecond, tzinfo)
+        return Manipuldate(year, month, day, hour, minute, second, microsecond,
+                           tzinfo)
 
-    ##########################################################################################
-    ###                                                                                    ###
-    ###                                 Date Arithmetic                                    ###
-    ###                                                                                    ###
-    ##########################################################################################
+    ############################################################################
+    ###                                                                      ###
+    ###                          Date Arithmetic                             ###
+    ###                                                                      ###
+    ############################################################################
 
     def add_years(self, years):
         """ Adds the amount of provided years to our datetime object then
@@ -213,7 +280,7 @@ class Manipuldate(datetime.datetime):
         """
         return Manipuldate.from_datetime(self - datetime.timedelta(days=days))
 
-    ########################## DATE ARITHMETIC CONVENIENCE METHODS ##########################
+    ################### DATE ARITHMETIC CONVENIENCE METHODS ####################
 
     def add_year(self):
         """ Convenience method for adding one year.
@@ -223,14 +290,6 @@ class Manipuldate(datetime.datetime):
         """
         return self.add_years(1)
 
-    def next_year(self):
-        """ Convenience method for adding one year.
-
-        Returns:
-            Manipuldate Instance
-        """
-        return self.add_year()
-
     def sub_year(self):
         """ Convenience method for subtracting one year.
 
@@ -238,14 +297,6 @@ class Manipuldate(datetime.datetime):
             Manipuldate Instance
         """
         return self.sub_years(1)
-
-    def last_year(self):
-        """ Convenience method for subtracting one year.
-
-        Returns:
-            Manipuldate Instance
-        """
-        return self.sub_year()
 
     def add_month(self):
         """ Convenience method for adding one month.
@@ -255,14 +306,6 @@ class Manipuldate(datetime.datetime):
         """
         return self.add_months(months=1)
 
-    def next_month(self):
-        """ Convenience method for adding one month.
-
-        Returns:
-            Manipuldate Instance
-        """
-        return self.add_month()
-
     def sub_month(self):
         """ Convenience method for subtracting one month.
 
@@ -271,28 +314,12 @@ class Manipuldate(datetime.datetime):
         """
         return self.sub_months(1)
 
-    def last_month(self):
-        """ Convenience method for subtracting one month.
-
-        Returns:
-            Manipuldate Instance
-        """
-        return self.sub_month()
-
     def add_week(self):
         """ Convenience method for adding one week.
         Returns:
             Manipuldate Instance
         """
         return self.add_weeks(1)
-
-    def next_week(self):
-        """ Convenience method for adding one week.
-
-        Returns:
-            Manipuldate Instance
-        """
-        return self.add_week()
 
     def sub_week(self):
         """ Convenience method for subtracting one week.
@@ -302,14 +329,6 @@ class Manipuldate(datetime.datetime):
         """
         return self.sub_weeks(1)
 
-    def last_week(self):
-        """ Convenience method for subtracting one week.
-
-        Returns:
-            Manipuldate Instance
-        """
-        return self.sub_week()
-
     def add_day(self):
         """ Convenience method for adding one day.
 
@@ -317,14 +336,6 @@ class Manipuldate(datetime.datetime):
             Manipuldate Instance
         """
         return self.add_days(1)
-
-    def tomorrow(self):
-        """ Convenience method for adding one day.
-
-        Returns:
-            Manipuldate Instance
-        """
-        return self.add_day()
 
     def sub_day(self):
         """ Convenience method for subtracting one day.
@@ -334,23 +345,15 @@ class Manipuldate(datetime.datetime):
         """
         return self.sub_days(1)
 
-    def yesterday(self):
-        """ Convenience method for subtracting one day.
-
-        Returns:
-            Manipuldate Instance
-        """
-        return self.sub_day()
-
-    ##########################################################################################
-    ###                                                                                    ###
-    ###                                   Date Logic                                       ###
-    ###                                                                                    ###
-    ##########################################################################################
+    ############################################################################
+    ###                                                                      ###
+    ###                            Date Logic                                ###
+    ###                                                                      ###
+    ############################################################################
 
     def is_weekend(self):
-        """ Returns a boolean answer that answers whether or not the current date is
-        a weekend.
+        """ Returns a boolean answer that answers whether or not the current
+        date is a weekend.
 
         Returns:
             Boolean
@@ -359,8 +362,8 @@ class Manipuldate(datetime.datetime):
         return day_of_weeks == self.SUNDAY or day_of_weeks == self.SATURDAY
 
     def is_weekday(self):
-        """ Returns a boolean answer that answers whether or not the current date is
-        a weekday.
+        """ Returns a boolean answer that answers whether or not the current
+        date is a weekday.
 
         Returns:
             Boolean
