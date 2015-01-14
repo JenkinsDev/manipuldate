@@ -244,7 +244,7 @@ class Manipuldate(datetime.datetime):
         Returns:
             Manipuldate Instance
         """
-        return self.add_days(DateTimeDefaults.DAYS_IN_WEEK.value * weeks)
+        return self.add_days(DateTimeDefaults.Days_In_Week.value * weeks)
 
     def sub_weeks(self, weeks):
         """ Subtracts n-weeks * 7 days form the current date.
@@ -252,7 +252,7 @@ class Manipuldate(datetime.datetime):
         Parameters:
             :param weeks: N-weeks to subtract from the current date.
         """
-        return self.sub_days(DateTimeDefaults.DAYS_IN_WEEK.value * weeks)
+        return self.sub_days(DateTimeDefaults.Days_In_Week.value * weeks)
 
     def add_days(self, days):
         """ Adds the amount of provided days to our datetime object then

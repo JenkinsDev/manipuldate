@@ -17,12 +17,12 @@ class DateTimeDefaults(Enum):
     """ Enumeration that holds basic information regarding the amount of
     X IN Y. """
 
-    YEARS_IN_CENTURY = 100
-    YEARS_IN_DECADE = 10
-    MONTHS_IN_YEAR = 12
-    WEEKS_IN_YEAR = 52
-    DAYS_IN_YEAR = 365
-    DAYS_IN_WEEK = 7
-    HOURS_IN_DAY = 24
-    MINUTES_IN_HOURS = 60
-    SECONDS_IN_MINUTE = 60
+    Years_In_Century = 100
+    Years_In_Decade = 10
+    Months_In_Year = 12
+    Weeks_In_Year = 52
+    Days_In_Year = 365
+    Days_In_Week = 7
+    Hours_In_Day = 24
+    Minutes_In_Hour = 60
+    Seconds_In_Minutes = 60
