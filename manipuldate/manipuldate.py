@@ -1,6 +1,6 @@
 import datetime
 
-from enums import DaysOfWeek, DateTimeDefaults
+from .enums import DaysOfWeek, DateTimeDefaults
 
 
 class Manipuldate(datetime.datetime):
@@ -244,7 +244,7 @@ class Manipuldate(datetime.datetime):
         Returns:
             Manipuldate Instance
         """
-        return self.add_days(self.DAYS_IN_WEEK * weeks)
+        return self.add_days(DateTimeDefaults.DAYS_IN_WEEK.value * weeks)
 
     def sub_weeks(self, weeks):
         """ Subtracts n-weeks * 7 days form the current date.
@@ -252,7 +252,7 @@ class Manipuldate(datetime.datetime):
         Parameters:
             :param weeks: N-weeks to subtract from the current date.
         """
-        return self.sub_days(self.DAYS_IN_WEEK * weeks)
+        return self.sub_days(DateTimeDefaults.DAYS_IN_WEEK.value * weeks)
 
     def add_days(self, days):
         """ Adds the amount of provided days to our datetime object then
@@ -359,7 +359,8 @@ class Manipuldate(datetime.datetime):
             Boolean
         """
         day_of_weeks = self.weekday()
-        return day_of_weeks == self.SUNDAY or day_of_weeks == self.SATURDAY
+        return day_of_weeks == DaysOfWeek.Sunday.value or \
+               day_of_weeks == DaysOfWeek.Saturday.value
 
     def is_weekday(self):
         """ Returns a boolean answer that answers whether or not the current
