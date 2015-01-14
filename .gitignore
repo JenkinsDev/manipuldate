@@ -5,3 +5,4 @@ build
 dist
 manipuldate.egg-info
 enum34-1.0.4-py3.4.egg
+.pypirc
