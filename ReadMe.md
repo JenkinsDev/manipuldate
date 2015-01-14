@@ -17,27 +17,26 @@ Current Installation Process: `git clone https://github.com/JenkinsDev/manipulda
 Here I will just show a very trivial usage, for more in-depth usage options check out our Documentation (Coming Soon TM)
 
 ```python
-from manipuldate.manipuldate import Manipuldate
+from manipuldate import Manipuldate
 
 
 today = Manipuldate.today()
 # Let's go ahead and print out our current date in a human readable string
-today.strftime("%m/%d/%Y")
+print(today.strftime("%m/%d/%Y"))
 
 
 # Now let's get tomorrow's date
-tomorrow = today.tomorrow()
-# Now let's print out tomorrow's date in a human readable string
-tomorrow.strftime("%m/%d/%Y")
+tomorrow = Manipuldate.tomorrow()
+print(tomorrow.strftime("%m/%d/%Y"))
 
 # Is tomorrow a weekend?
 if tomorrow.is_weekend():
-    pass # Do Some Work
+    print("Partayyyyyy")
 else:
-    pass # Well then, it must be a weekday!
+    print("Get to work!")
 
 
-# Oh! Let's get today's date next month!
-next_month = today.next_month() # Or you can use add_month() or add_months(1)
-next_month.strftime("%m/%d/%Y")
+# Oh! Let's add a month to tomorrow.
+next_month = tomorrow.add_month()
+print(next_month.strftime("%m/%d/%Y"))
 ```
