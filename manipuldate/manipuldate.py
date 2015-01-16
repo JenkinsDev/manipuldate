@@ -352,21 +352,75 @@ class Manipuldate(datetime.datetime):
     ############################################################################
 
     def is_weekend(self):
-        """ Returns a boolean answer that answers whether or not the current
-        date is a weekend.
+        """ Checks to see if the instance's date falls on a weekend.
 
         Returns:
             Boolean
         """
-        day_of_weeks = self.weekday()
-        return day_of_weeks == DaysOfWeek.Sunday.value or \
-               day_of_weeks == DaysOfWeek.Saturday.value
+        day_of_week = self.weekday()
+        return day_of_week == DaysOfWeek.Sunday.value or \
+               day_of_week == DaysOfWeek.Saturday.value
 
     def is_weekday(self):
-        """ Returns a boolean answer that answers whether or not the current
-        date is a weekday.
+        """ Checks to see if the instance's date falls on a weekday.
 
         Returns:
             Boolean
         """
         return not self.is_weekend()
+
+    def is_monday(self):
+        """ Checks to see if the instance's date falls on a Monday.
+
+        Returns:
+            Boolean
+        """
+        return self.weekday() == DaysOfWeek.Monday.value
+
+    def is_tuesday(self):
+        """ Checks to see if the instance's date falls on a Tuesday.
+
+        Returns:
+            Boolean
+        """
+        return self.weekday() == DaysOfWeek.Tuesday.value
+
+    def is_wednesday(self):
+        """ Checks to see if the instance's date falls on a Wednesday.
+
+        Returns:
+            Boolean
+        """
+        return self.weekday() == DaysOfWeek.Wednesday.value
+
+    def is_thursday(self):
+        """ Checks to see if the instance's date falls on a Thursday.
+
+        Returns:
+            Boolean
+        """
+        return self.weekday() == DaysOfWeek.Thursday.value
+
+    def is_friday(self):
+        """ Checks to see if the instance's date falls on a Friday.
+
+        Returns:
+            Boolean
+        """
+        return self.weekday() == DaysOfWeek.Friday.value
+
+    def is_saturday(self):
+        """ Checks to see if the instance's date falls on a Saturday.
+
+        Returns:
+            Boolean
+        """
+        return self.weekday() == DaysOfWeek.Saturday.value
+
+    def is_sunday(self):
+        """ Checks to see if the instance's date falls on a Sunday.
+
+        Returns:
+            Boolean
+        """
+        return self.weekday() == DaysOfWeek.Sunday.value
