@@ -8,6 +8,10 @@ class Manipuldate(datetime.datetime):
 
     DEFAULT_STRING_FORMAT = 'Y-m-d H:i:s'
 
+    MIN_YEAR = 1970
+    MIN_MONTH = 1
+    MIN_DAY = 1
+
     ############################################################################
     ###                                                                      ###
     ###                      Initialization Methods                          ###
@@ -134,40 +138,8 @@ class Manipuldate(datetime.datetime):
         """
         # Year, month and day are required by the datetime class which we
         # extend with manipuldate.
-        return cls(1970, 1, 1, t.hour, t.minute, t.second,
-                           t.microsecond, t.tzinfo)
-
-    def _copy_to_new_instance(self, year=None, month=None, day=None, hour=None,
-                              minute=None, second=None, microsecond=None,
-                              tzinfo=None):
-        """ Creates a new instance of Manipuldate based on the supplied
-        information, if something is set to None or False then we will use the
-        corresponding attributes value.
-
-        Parameters:
-            :param year: Numerical value that represents years
-            :param month: Numerical value that represents months [1-12]
-            :param day: Numerical value that represents days [1-(28-31)]
-            :param hour: Numerical value that represents hours [0-24]
-            :param minute: Numerical value that represents minutes [0-60]
-            :param second: Numerical value that represents seconds [0-60]
-            :param second: Numerical value that represents microseconds
-                           [0-1000000]
-            :param tzinfo: TimeZone information
-
-        Returns:
-            Manipuldate Instance
-        """
-        year = year or self.year
-        month = month or self.month
-        day = day or self.day
-        hour = hour or self.hour
-        minute = minute or self.minute
-        second = second or self.second
-        microsecond = microsecond or self.microsecond
-        tzinfo = tzinfo or self.tzinfo
-        return Manipuldate(year, month, day, hour, minute, second, microsecond,
-                           tzinfo)
+        return cls(cls.MIN_YEAR, cls.MIN_MONTH, cls.MIN_DAY, t.hour, t.minute,
+                           t.second, t.microsecond, t.tzinfo)
 
     ############################################################################
     ###                                                                      ###
@@ -186,7 +158,7 @@ class Manipuldate(datetime.datetime):
         Returns:
             Manipuldate Instance
         """
-        return self._copy_to_new_instance(year=self.year + years)
+        return self.replace(year=self.year + years)
 
     def sub_years(self, years):
         """ Subtracts the amount of provided years from our datetime object
@@ -199,7 +171,7 @@ class Manipuldate(datetime.datetime):
         Returns:
             Manipuldate Instance
         """
-        return self._copy_to_new_instance(year=self.year - years)
+        return self.replace(year=self.year - years)
 
     def add_months(self, months):
         """ Adds the amount of provided months to our datetime object
@@ -216,7 +188,7 @@ class Manipuldate(datetime.datetime):
         while month > 12:
             year += 1
             month -= 12
-        return self._copy_to_new_instance(year=year, month=month)
+        return self.replace(year=year, month=month)
 
     def sub_months(self, months):
         """ Subtracts the amount of provided months from our datetime object
@@ -233,7 +205,7 @@ class Manipuldate(datetime.datetime):
         while month <= 0:
             year -= 1
             month += 12
-        return self._copy_to_new_instance(year=year, month=month)
+        return self.replace(year=year, month=month)
 
     def add_weeks(self, weeks):
         """ Adds n-weeks * 7 days to the current date.
