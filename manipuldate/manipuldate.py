@@ -1,22 +1,27 @@
-import datetime
+from datetime import datetime, timedelta
 
 from .enums import DaysOfWeek, DateTimeDefaults
 
 
-class Manipuldate(datetime.datetime):
+class Manipuldate(datetime):
     """ Easy date/time/datetime manipulation with Python3.x+ """
 
-    DEFAULT_STRING_FORMAT = 'Y-m-d H:i:s'
+    DEFAULT_STRING_FORMAT = '%Y-%m-%d %H:%M:%S'
 
     MIN_YEAR = 1970
     MIN_MONTH = 1
     MIN_DAY = 1
 
     ############################################################################
-    ###                                                                      ###
     ###                      Initialization Methods                          ###
-    ###                                                                      ###
     ############################################################################
+
+    def __new__(cls, year, month=None, day=None, hour=0, minute=0, second=0,
+                microsecond=0, tzinfo=None, string_format=None):
+        instance = datetime.__new__(cls, year, month, day, hour, minute, second,
+                                    microsecond, tzinfo)
+        instance.string_format = string_format or cls.DEFAULT_STRING_FORMAT
+        return instance
 
     @classmethod
     def tomorrow(cls):
@@ -142,9 +147,7 @@ class Manipuldate(datetime.datetime):
                            t.second, t.microsecond, t.tzinfo)
 
     ############################################################################
-    ###                                                                      ###
     ###                          Date Arithmetic                             ###
-    ###                                                                      ###
     ############################################################################
 
     def add_years(self, years):
@@ -237,7 +240,7 @@ class Manipuldate(datetime.datetime):
         Returns:
             Manipuldate Instance
         """
-        return Manipuldate.from_datetime(self + datetime.timedelta(days=days))
+        return Manipuldate.from_datetime(self + timedelta(days=days))
 
     def sub_days(self, days):
         """ Subtracts the amount of provided days from our datetime object then
@@ -250,7 +253,7 @@ class Manipuldate(datetime.datetime):
         Returns:
             Manipuldate Instance
         """
-        return Manipuldate.from_datetime(self - datetime.timedelta(days=days))
+        return Manipuldate.from_datetime(self - timedelta(days=days))
 
     ################### DATE ARITHMETIC CONVENIENCE METHODS ####################
 
@@ -318,9 +321,7 @@ class Manipuldate(datetime.datetime):
         return self.sub_days(1)
 
     ############################################################################
-    ###                                                                      ###
     ###                            Date Logic                                ###
-    ###                                                                      ###
     ############################################################################
 
     def is_weekend(self):
@@ -396,3 +397,10 @@ class Manipuldate(datetime.datetime):
             Boolean
         """
         return self.weekday() == DaysOfWeek.Sunday.value
+
+    ############################################################################
+    ###                           Representing                               ###
+    ############################################################################
+
+    def __str__(self):
+        return self.strftime(self.string_format)
