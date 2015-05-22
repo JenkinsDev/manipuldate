@@ -1,12 +1,14 @@
-from datetime import datetime, timedelta
+import datetime
 
-from .enums import DaysOfWeek, DateTimeDefaults
+from calendar import monthrange
+from .enums import DaysOfWeek, DateTimeDefaults, Months
 
 
-class Manipuldate(datetime):
+class Manipuldate(datetime.datetime):
     """ Easy date/time/datetime manipulation with Python3.x+ """
 
     DEFAULT_STRING_FORMAT = '%Y-%m-%d %H:%M:%S'
+    string_format = DEFAULT_STRING_FORMAT
 
     MIN_YEAR = 1970
     MIN_MONTH = 1
@@ -18,9 +20,10 @@ class Manipuldate(datetime):
 
     def __new__(cls, year, month=None, day=None, hour=0, minute=0, second=0,
                 microsecond=0, tzinfo=None, string_format=None):
-        instance = datetime.__new__(cls, year, month, day, hour, minute, second,
+        instance = datetime.datetime.__new__(cls, year, month, day, hour, minute, second,
                                     microsecond, tzinfo)
-        instance.string_format = string_format or cls.DEFAULT_STRING_FORMAT
+        if string_format:
+            instance.set_string_format(string_format)
         return instance
 
     @classmethod
@@ -100,6 +103,18 @@ class Manipuldate(datetime):
             Manipuldate Instance
         """
         return cls.today().sub_year()
+
+    @classmethod
+    def min_date(cls):
+        year = datetime.MINYEAR
+        month = Months.January.value
+        return cls(year=year, month=month, day=1)
+
+    @classmethod
+    def max_date(cls):
+        year = datetime.MAXYEAR
+        month = Months.December.value
+        return cls(year=year, month=month, day=monthrange(year, month)[1])
 
     @classmethod
     def from_datetime(cls, dt):
@@ -240,7 +255,7 @@ class Manipuldate(datetime):
         Returns:
             Manipuldate Instance
         """
-        return Manipuldate.from_datetime(self + timedelta(days=days))
+        return Manipuldate.from_datetime(self + datetime.timedelta(days=days))
 
     def sub_days(self, days):
         """ Subtracts the amount of provided days from our datetime object then
@@ -253,7 +268,7 @@ class Manipuldate(datetime):
         Returns:
             Manipuldate Instance
         """
-        return Manipuldate.from_datetime(self - timedelta(days=days))
+        return Manipuldate.from_datetime(self - datetime.timedelta(days=days))
 
     ################### DATE ARITHMETIC CONVENIENCE METHODS ####################
 
@@ -401,6 +416,9 @@ class Manipuldate(datetime):
     ############################################################################
     ###                           Representing                               ###
     ############################################################################
+
+    def set_string_format(self, string_format):
+        self.string_format = string_format
 
     def __str__(self):
         return self.strftime(self.string_format)

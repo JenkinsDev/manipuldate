@@ -38,6 +38,20 @@ class TestManipuldateInstances(unittest.TestCase):
         self.assertTrue(isinstance(one_month, Manipuldate))
         self.assertTrue(isinstance(one_year, Manipuldate))
 
+    def test_creating_instance_for_max_date_is_correct(self):
+        max_month = 12
+        max_day = 31
+        max_year = datetime.MAXYEAR
+        max_date = datetime.datetime(year=max_year, month=max_month, day=max_day)
+        self.assertEqual(str(Manipuldate.max_date()), str(max_date))
+
+    def test_creating_instance_for_min_date_is_correct(self):
+        min_month = 1
+        min_day = 1
+        min_year = 1
+        min_date = datetime.datetime(year=min_year, month=min_month, day=min_day)
+        self.assertEqual(str(Manipuldate.min_date()), str(min_date))
+
 
 class TestManipuldateInstanceCopyingPreservesData(unittest.TestCase):
 

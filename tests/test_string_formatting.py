@@ -27,7 +27,7 @@ class TestStringFormatting(unittest.TestCase):
 
     def test_overriding_string_formatting(self):
         manip = self.manip_dt
-        manip.string_format = "%Y/%m/%d %H-%M-%S"
+        manip.set_string_format("%Y/%m/%d %H-%M-%S")
         self.assertEqual(str(manip), "2005/05/15 10-50-20")
 
 if __name__ == "__main__":
