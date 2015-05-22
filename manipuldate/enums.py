@@ -46,3 +46,13 @@ class Months(Enum):
     October = 10
     Novemeber = 11
     December = 12
+
+
+class DateTimeFormats(Enum):
+    """ Enumeration that holds popular datetime formats.
+    """
+
+    Atom = "%Y-%m-%dT%H:%M:%S%z"
+    W3C = "%Y-%m-%dT%H:%M:%S%z"
+    RFC3339 = "%Y-%m-%dT%H:%M:%S%z"
+    Cookie = "%a, %d %b %Y %H:%M:%S"

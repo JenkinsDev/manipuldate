@@ -10,9 +10,13 @@ class Manipuldate(datetime.datetime):
     DEFAULT_STRING_FORMAT = '%Y-%m-%d %H:%M:%S'
     string_format = DEFAULT_STRING_FORMAT
 
-    MIN_YEAR = 1970
-    MIN_MONTH = 1
+    MIN_YEAR = datetime.MINYEAR
+    MIN_MONTH = Months.January.value
     MIN_DAY = 1
+
+    MAX_YEAR = datetime.MAXYEAR
+    MAX_MONTH = Months.December.value
+    MAX_DAY = monthrange(MAX_YEAR, MAX_MONTH)[1]
 
     ############################################################################
     ###                      Initialization Methods                          ###
@@ -106,15 +110,11 @@ class Manipuldate(datetime.datetime):
 
     @classmethod
     def min_date(cls):
-        year = datetime.MINYEAR
-        month = Months.January.value
-        return cls(year=year, month=month, day=1)
+        return cls(year=cls.MIN_YEAR, month=cls.MIN_MONTH, day=cls.MIN_DAY)
 
     @classmethod
     def max_date(cls):
-        year = datetime.MAXYEAR
-        month = Months.December.value
-        return cls(year=year, month=month, day=monthrange(year, month)[1])
+        return cls(year=cls.MAX_YEAR, month=cls.MAX_MONTH, day=cls.MAX_DAY)
 
     @classmethod
     def from_datetime(cls, dt):

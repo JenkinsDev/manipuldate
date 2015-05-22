@@ -48,7 +48,7 @@ class TestManipuldateInstances(unittest.TestCase):
     def test_creating_instance_for_min_date_is_correct(self):
         min_month = 1
         min_day = 1
-        min_year = 1
+        min_year = datetime.MINYEAR
         min_date = datetime.datetime(year=min_year, month=min_month, day=min_day)
         self.assertEqual(str(Manipuldate.min_date()), str(min_date))
 
@@ -88,8 +88,8 @@ class TestManipuldateInstanceCopyingPreservesData(unittest.TestCase):
         self.assertEqual(manip.microsecond, self.t.microsecond)
         self.assertEqual(manip.tzinfo, self.t.tzinfo)
         # Just because with datetime the year, month and day are required
-        # we will go ahead and check to make sure they are set to 1/1/1970
-        self.assertEqual(manip.year, 1970)
+        # we will go ahead and check to make sure they are set to 1/1/0001
+        self.assertEqual(manip.year, 1)
         self.assertEqual(manip.month, 1)
         self.assertEqual(manip.day, 1)
 
