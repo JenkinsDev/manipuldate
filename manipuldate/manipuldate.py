@@ -10,7 +10,7 @@ class Manipuldate(datetime.datetime):
     DEFAULT_STRING_FORMAT = '%Y-%m-%d %H:%M:%S'
     string_format = DEFAULT_STRING_FORMAT
 
-    MIN_YEAR = datetime.MINYEAR
+    MIN_YEAR = 1000 # Python 3.2 requires at least a year of 1000 when using strftime().
     MIN_MONTH = Months.January.value
     MIN_DAY = 1
 
