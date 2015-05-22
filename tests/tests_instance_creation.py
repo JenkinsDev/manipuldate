@@ -38,6 +38,20 @@ class TestManipuldateInstances(unittest.TestCase):
         self.assertTrue(isinstance(one_month, Manipuldate))
         self.assertTrue(isinstance(one_year, Manipuldate))
 
+    def test_creating_instance_for_max_date_is_correct(self):
+        max_month = 12
+        max_day = 31
+        max_year = datetime.MAXYEAR
+        max_date = datetime.datetime(year=max_year, month=max_month, day=max_day)
+        self.assertEqual(str(Manipuldate.max_date()), str(max_date))
+
+    def test_creating_instance_for_min_date_is_correct(self):
+        min_month = 1
+        min_day = 1
+        min_year = 1000 # Python 3.2 requires at least a year of 1000 when using strftime().
+        min_date = datetime.datetime(year=min_year, month=min_month, day=min_day)
+        self.assertEqual(str(Manipuldate.min_date()), str(min_date))
+
 
 class TestManipuldateInstanceCopyingPreservesData(unittest.TestCase):
 
@@ -74,8 +88,8 @@ class TestManipuldateInstanceCopyingPreservesData(unittest.TestCase):
         self.assertEqual(manip.microsecond, self.t.microsecond)
         self.assertEqual(manip.tzinfo, self.t.tzinfo)
         # Just because with datetime the year, month and day are required
-        # we will go ahead and check to make sure they are set to 1/1/1970
-        self.assertEqual(manip.year, 1970)
+        # we will go ahead and check to make sure they are set to 1/1/1000
+        self.assertEqual(manip.year, 1000)
         self.assertEqual(manip.month, 1)
         self.assertEqual(manip.day, 1)
 

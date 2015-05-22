@@ -1,18 +1,34 @@
 import datetime
 
-from .enums import DaysOfWeek, DateTimeDefaults
+from calendar import monthrange
+from .enums import DaysOfWeek, DateTimeDefaults, Months
 
 
 class Manipuldate(datetime.datetime):
     """ Easy date/time/datetime manipulation with Python3.x+ """
 
-    DEFAULT_STRING_FORMAT = 'Y-m-d H:i:s'
+    DEFAULT_STRING_FORMAT = '%Y-%m-%d %H:%M:%S'
+    string_format = DEFAULT_STRING_FORMAT
+
+    MIN_YEAR = 1000 # Python 3.2 requires at least a year of 1000 when using strftime().
+    MIN_MONTH = Months.January.value
+    MIN_DAY = 1
+
+    MAX_YEAR = datetime.MAXYEAR
+    MAX_MONTH = Months.December.value
+    MAX_DAY = monthrange(MAX_YEAR, MAX_MONTH)[1]
 
     ############################################################################
-    ###                                                                      ###
     ###                      Initialization Methods                          ###
-    ###                                                                      ###
     ############################################################################
+
+    def __new__(cls, year, month=None, day=None, hour=0, minute=0, second=0,
+                microsecond=0, tzinfo=None, string_format=None):
+        instance = datetime.datetime.__new__(cls, year, month, day, hour, minute, second,
+                                    microsecond, tzinfo)
+        if string_format:
+            instance.set_string_format(string_format)
+        return instance
 
     @classmethod
     def tomorrow(cls):
@@ -93,6 +109,14 @@ class Manipuldate(datetime.datetime):
         return cls.today().sub_year()
 
     @classmethod
+    def min_date(cls):
+        return cls(year=cls.MIN_YEAR, month=cls.MIN_MONTH, day=cls.MIN_DAY)
+
+    @classmethod
+    def max_date(cls):
+        return cls(year=cls.MAX_YEAR, month=cls.MAX_MONTH, day=cls.MAX_DAY)
+
+    @classmethod
     def from_datetime(cls, dt):
         """ Creates an instance of Manipuldate based on a supplied datetime
         instance.
@@ -134,45 +158,11 @@ class Manipuldate(datetime.datetime):
         """
         # Year, month and day are required by the datetime class which we
         # extend with manipuldate.
-        return cls(1970, 1, 1, t.hour, t.minute, t.second,
-                           t.microsecond, t.tzinfo)
-
-    def _copy_to_new_instance(self, year=None, month=None, day=None, hour=None,
-                              minute=None, second=None, microsecond=None,
-                              tzinfo=None):
-        """ Creates a new instance of Manipuldate based on the supplied
-        information, if something is set to None or False then we will use the
-        corresponding attributes value.
-
-        Parameters:
-            :param year: Numerical value that represents years
-            :param month: Numerical value that represents months [1-12]
-            :param day: Numerical value that represents days [1-(28-31)]
-            :param hour: Numerical value that represents hours [0-24]
-            :param minute: Numerical value that represents minutes [0-60]
-            :param second: Numerical value that represents seconds [0-60]
-            :param second: Numerical value that represents microseconds
-                           [0-1000000]
-            :param tzinfo: TimeZone information
-
-        Returns:
-            Manipuldate Instance
-        """
-        year = year or self.year
-        month = month or self.month
-        day = day or self.day
-        hour = hour or self.hour
-        minute = minute or self.minute
-        second = second or self.second
-        microsecond = microsecond or self.microsecond
-        tzinfo = tzinfo or self.tzinfo
-        return Manipuldate(year, month, day, hour, minute, second, microsecond,
-                           tzinfo)
+        return cls(cls.MIN_YEAR, cls.MIN_MONTH, cls.MIN_DAY, t.hour, t.minute,
+                           t.second, t.microsecond, t.tzinfo)
 
     ############################################################################
-    ###                                                                      ###
     ###                          Date Arithmetic                             ###
-    ###                                                                      ###
     ############################################################################
 
     def add_years(self, years):
@@ -186,7 +176,7 @@ class Manipuldate(datetime.datetime):
         Returns:
             Manipuldate Instance
         """
-        return self._copy_to_new_instance(year=self.year + years)
+        return self.replace(year=self.year + years)
 
     def sub_years(self, years):
         """ Subtracts the amount of provided years from our datetime object
@@ -199,7 +189,7 @@ class Manipuldate(datetime.datetime):
         Returns:
             Manipuldate Instance
         """
-        return self._copy_to_new_instance(year=self.year - years)
+        return self.replace(year=self.year - years)
 
     def add_months(self, months):
         """ Adds the amount of provided months to our datetime object
@@ -216,7 +206,7 @@ class Manipuldate(datetime.datetime):
         while month > 12:
             year += 1
             month -= 12
-        return self._copy_to_new_instance(year=year, month=month)
+        return self.replace(year=year, month=month)
 
     def sub_months(self, months):
         """ Subtracts the amount of provided months from our datetime object
@@ -233,7 +223,7 @@ class Manipuldate(datetime.datetime):
         while month <= 0:
             year -= 1
             month += 12
-        return self._copy_to_new_instance(year=year, month=month)
+        return self.replace(year=year, month=month)
 
     def add_weeks(self, weeks):
         """ Adds n-weeks * 7 days to the current date.
@@ -346,27 +336,89 @@ class Manipuldate(datetime.datetime):
         return self.sub_days(1)
 
     ############################################################################
-    ###                                                                      ###
     ###                            Date Logic                                ###
-    ###                                                                      ###
     ############################################################################
 
     def is_weekend(self):
-        """ Returns a boolean answer that answers whether or not the current
-        date is a weekend.
+        """ Checks to see if the instance's date falls on a weekend.
 
         Returns:
             Boolean
         """
-        day_of_weeks = self.weekday()
-        return day_of_weeks == DaysOfWeek.Sunday.value or \
-               day_of_weeks == DaysOfWeek.Saturday.value
+        day_of_week = self.weekday()
+        return day_of_week == DaysOfWeek.Sunday.value or \
+               day_of_week == DaysOfWeek.Saturday.value
 
     def is_weekday(self):
-        """ Returns a boolean answer that answers whether or not the current
-        date is a weekday.
+        """ Checks to see if the instance's date falls on a weekday.
 
         Returns:
             Boolean
         """
         return not self.is_weekend()
+
+    def is_monday(self):
+        """ Checks to see if the instance's date falls on a Monday.
+
+        Returns:
+            Boolean
+        """
+        return self.weekday() == DaysOfWeek.Monday.value
+
+    def is_tuesday(self):
+        """ Checks to see if the instance's date falls on a Tuesday.
+
+        Returns:
+            Boolean
+        """
+        return self.weekday() == DaysOfWeek.Tuesday.value
+
+    def is_wednesday(self):
+        """ Checks to see if the instance's date falls on a Wednesday.
+
+        Returns:
+            Boolean
+        """
+        return self.weekday() == DaysOfWeek.Wednesday.value
+
+    def is_thursday(self):
+        """ Checks to see if the instance's date falls on a Thursday.
+
+        Returns:
+            Boolean
+        """
+        return self.weekday() == DaysOfWeek.Thursday.value
+
+    def is_friday(self):
+        """ Checks to see if the instance's date falls on a Friday.
+
+        Returns:
+            Boolean
+        """
+        return self.weekday() == DaysOfWeek.Friday.value
+
+    def is_saturday(self):
+        """ Checks to see if the instance's date falls on a Saturday.
+
+        Returns:
+            Boolean
+        """
+        return self.weekday() == DaysOfWeek.Saturday.value
+
+    def is_sunday(self):
+        """ Checks to see if the instance's date falls on a Sunday.
+
+        Returns:
+            Boolean
+        """
+        return self.weekday() == DaysOfWeek.Sunday.value
+
+    ############################################################################
+    ###                           Representing                               ###
+    ############################################################################
+
+    def set_string_format(self, string_format):
+        self.string_format = string_format
+
+    def __str__(self):
+        return self.strftime(self.string_format)
