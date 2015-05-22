@@ -11,7 +11,7 @@ def read(*paths):
 
 setup(
     name='manipuldate',
-    version='0.2.0',
+    version='0.2.1',
     description='Date/Time/DateTime Manipulation Done Right',
     long_description=read('.', 'ReadMe.md'),
     url='https://github.com/JenkinsDev/manipuldate',
